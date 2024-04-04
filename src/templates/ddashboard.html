@@ -75,7 +75,8 @@
                         <td>{{i+1}}</td>
                         <td>{{dashboard_data[i][0]}}</td>
                         <td>{{dashboard_data[i][1]}}</td>
-                        <td><button class="btn btn-warning"><a href="/book/{{dashboard_data[i][0]}}" style="color:white">Consult</a></button></td>
+						<td>{{dashboard_data[i][2]}}</td>
+                        <td><button class="btn btn-warning"><a href="/book/{{dashboard_data[i][1]}}/{{dashboard_data[i][0]}}" style="color:white">Consult</a></button></td>
                     </tr>
                     {%endfor%}
                 </table>

@@ -35,17 +35,18 @@ def registerUser():
     username=request.form['username']
     walletaddr=request.form['walletaddr']
     password=int(request.form['password'])
+    email=request.form['email']
     role=request.form['role']
     print(username,walletaddr,password,role)
     if(role=='Doctor'):
         print('Registering as Doctor')
         contract,web3=connect_with_blockchain(0)
-        tx_hash=contract.functions.addDoctor(walletaddr,username,password).transact()
+        tx_hash=contract.functions.addDoctor(email,walletaddr,username,password).transact()
         web3.eth.waitForTransactionReceipt(tx_hash)
     elif(role=='Patient'):
         print('Registering as Patient')
         contract,web3=connect_with_blockchain(0)
-        tx_hash=contract.functions.addPatient(walletaddr,username,password).transact()
+        tx_hash=contract.functions.addPatient(email,walletaddr,username,password).transact()
         web3.eth.waitForTransactionReceipt(tx_hash)
     return render_template('login.html')
 
@@ -59,26 +60,26 @@ def loginUser():
     password=int(request.form['password'])
     role=''
     contract,web3=connect_with_blockchain(0)
-    _doctors,_dnames,_dpasswords=contract.functions.viewDoctors().call()
-    _patients,_pnames,_ppasswords=contract.functions.viewPatients().call()
+    _demails,_doctors,_dnames,_dpasswords=contract.functions.viewDoctors().call()
+    _pemails,_patients,_pnames,_ppasswords=contract.functions.viewPatients().call()
 
-    if walletaddr in _doctors:
+    if walletaddr in _demails:
         role='Doctor'
-    elif walletaddr in _patients:
+    elif walletaddr in _pemails:
         role='Patient'
     print(role)
     if role=='Doctor':
-        doctorIndex=_doctors.index(walletaddr)
+        doctorIndex=_demails.index(walletaddr)
         if(_dpasswords[doctorIndex]==password):
-            session['walletaddr']=walletaddr
+            session['walletaddr']=_doctors[doctorIndex]
             return redirect('/ddashboard')
         else:
             return redirect('/login')
     
     if role=='Patient':
-        patientIndex=_patients.index(walletaddr)
+        patientIndex=_pemails.index(walletaddr)
         if(_ppasswords[patientIndex]==password):
-            session['walletaddr']=walletaddr
+            session['walletaddr']=_patients[patientIndex]
             return redirect('/pdashboard')
         else:
             return redirect('/login')
@@ -88,11 +89,12 @@ def ddashboard():
     data=[]
     walletaddr=session['walletaddr']
     contract,web3=connect_with_blockchain(0)
-    _cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
+    _appids,_cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
     for i in range(len(_cdoctors)):
         if _cdoctors[i]==walletaddr:
             if _cstatus[i]==False:
                 dummy=[]
+                dummy.append(_appids[i])
                 dummy.append(_cpatients[i])
                 dummy.append(_cdates[i])
                 data.append(dummy)
@@ -103,7 +105,7 @@ def ddashboard():
 def pdashboard():
     data=[]
     contract,web3=connect_with_blockchain(0)
-    _doctors,_dnames,_dpasswords=contract.functions.viewDoctors().call()
+    _demails,_doctors,_dnames,_dpasswords=contract.functions.viewDoctors().call()
     for i in range(len(_doctors)):
         dummy=[]
         dummy.append(_doctors[i])
@@ -128,10 +130,13 @@ def pdoctorcons():
     data=[]
     walletaddr=session['walletaddr']
     contract,web3=connect_with_blockchain(0)
-    _cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
+    _appids,_cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
     _cfullNames,_cdobs,_cgenders,_caddresses,_cphones,_cemails,_cemergNames,_cemergRelations,_cemergContacts=contract.functions.viewDemographics().call()
     _cmeds,_callergies,_cpastMedHistory,_cfamMedHistory,_csocialHistory=contract.functions.viewMedicalHistory().call()
     _cbp,_cpulse,_ctemp,_crespiratoryRate,_cweight,_cheight,_cbmi,_creasonforvisit,_cphysicalexamination,_cdiagnosis=contract.functions.viewClinicalData().call()
+    print(_cdoctors,_cpatients,_cdates,_cstatus)
+    print(_cfullNames,_cdobs,_cgenders,_caddresses,_cphones,_cemails,_cemergNames,_cemergRelations,_cemergContacts)
+    print(_cmeds,_callergies,_cpastMedHistory,_cfamMedHistory,_csocialHistory)
     for i in range(len(_cdoctors)):
         if _cpatients[i]==walletaddr and _cstatus[i]==True:
             dummy=[]
@@ -175,10 +180,11 @@ def pdoctorcons():
 def logoutPage():
     return render_template('index.html')
 
-@app.route('/book/<id>')
-def consultPatient(id):
+@app.route('/book/<id>/<id1>')
+def consultPatient(id,id1):
     print(id)
     session['pid']=id
+    session['appid']=int(id1)
     return redirect('/consultPatient')
 
 @app.route('/consultPatient')
@@ -215,7 +221,7 @@ def consultpatientform():
     doctor=session['walletaddr']
     patient=session['pid']
     contract,web3=connect_with_blockchain(0)
-    tx_hash=contract.functions.treatPatient(doctor,patient).transact()
+    tx_hash=contract.functions.treatPatient(doctor,patient,int(session['appid'])).transact()
     web3.eth.waitForTransactionReceipt(tx_hash)
     tx_hash=contract.functions.storeDemographics(fullName,dateOfBirth,gender,address,phone,email,emergName,emergRelation,emergContact).transact()
     web3.eth.waitForTransactionReceipt(tx_hash)
@@ -230,13 +236,14 @@ def dmypatients():
     data=[]
     doctor=session['walletaddr']
     contract,web3=connect_with_blockchain(0)
-    _cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
+    _appids,_cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
     for i in range(len(_cdoctors)):
         if _cdoctors[i]==doctor:
             dummy=[]
             dummy.append(_cpatients[i])
             dummy.append(_cdates[i])
             dummy.append(_cstatus[i])
+            dummy.append(_appids[i])
             data.append(dummy)
     l=len(data)
     return render_template('dmypatients.html',dashboard_data=data,len=l)
@@ -247,13 +254,13 @@ def viewConsultationsPublic():
     password=request.form['password']
 
     contract,web3=connect_with_blockchain(0)
-    _patients,_pnames,_ppasswords=contract.functions.viewPatients().call()
+    _pemails,_patients,_pnames,_ppasswords=contract.functions.viewPatients().call()
 
     print(_patients,_ppasswords)
 
     for i in range(len(_patients)):
-        if _patients[i]==walletaddr and _ppasswords[i]==int(password):
-            session['walletaddr']=walletaddr
+        if _pemails[i]==walletaddr and _ppasswords[i]==int(password):
+            session['walletaddr']=_patients[i]
             return redirect('/viewPublic')
     return render_template('viewconsultations.html',err='You cant access them')
 
@@ -266,7 +273,7 @@ def viewPublic():
     data=[]
     walletaddr=session['walletaddr']
     contract,web3=connect_with_blockchain(0)
-    _cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
+    _appids,_cdoctors,_cpatients,_cdates,_cstatus=contract.functions.viewAppointments().call()
     _cfullNames,_cdobs,_cgenders,_caddresses,_cphones,_cemails,_cemergNames,_cemergRelations,_cemergContacts=contract.functions.viewDemographics().call()
     _cmeds,_callergies,_cpastMedHistory,_cfamMedHistory,_csocialHistory=contract.functions.viewMedicalHistory().call()
     _cbp,_cpulse,_ctemp,_crespiratoryRate,_cweight,_cheight,_cbmi,_creasonforvisit,_cphysicalexamination,_cdiagnosis=contract.functions.viewClinicalData().call()
