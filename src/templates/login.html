@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Electronic Health Records using Blockchain</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Electronic Medical Records using Blockchain</h2>
+				</div>
+			</div>
+		</div>
+		<div class="wrap">
+			<div class="container">
+				<div class="row justify-content-between">
+						<div class="col">
+							<p class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#">+91-7893015625</a></p>
+						</div>
+						<div class="col d-flex justify-content-end">
+							<div class="social-media">
+				    		<p class="mb-0 d-flex">
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+				    		</p>
+			        </div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	    	<a class="navbar-brand" href="index.html">EHR <span>1.0</span></a>
+	    	
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+	        	<li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
+				<li class="nav-item active"><a href="/login" class="nav-link">Login</a></li>
+				<li class="nav-item"><a href="/viewconsultations" class="nav-link">View Consultations</a></li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+
+	</section>
+	<section>
+		<div class="container">
+            <h2>Login</h2>
+				  <form action="/loginUser" method="POST">
+				  
+				  <div class="form-group">
+					<label for="walletaddr">Your wallet address:</label>
+					<input type="text" class="form-control" id="walletaddr" placeholder="Enter wallet address" name="walletaddr">
+				 </div>
+
+				  <div class="form-group">
+					<label for="name">Password:</label>
+					<input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
+				  </div>
+				 
+				  <button type="submit" class="btn btn-warning btn-register">Login Here</button>
+				  </form>
+		
+	    </div>
+	</section>
+
+	<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/popper.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/main.js')}}"></script>
+
+	</body>
+</html>
+

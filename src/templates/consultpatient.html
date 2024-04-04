@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Electronic Health Records using Blockchain</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Electronic Health Records using Blockchain</h2>
+				</div>
+			</div>
+		</div>
+		<div class="wrap">
+			<div class="container">
+				<div class="row justify-content-between">
+						<div class="col">
+							<p class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#">+91-7893015625</a></p>
+						</div>
+						<div class="col d-flex justify-content-end">
+							<div class="social-media">
+				    		<p class="mb-0 d-flex">
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+				    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+				    		</p>
+			        </div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	    	<a class="navbar-brand" href="index.html">EHR <span>1.0</span></a>
+	    	
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="fa fa-bars"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav m-auto">
+	        	<li class="nav-item active"><a href="/ddashboard" class="nav-link">Home</a></li>
+	        	<li class="nav-item"><a href="/dmypatients" class="nav-link">My Patients</a></li>
+				<li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+
+	</section>
+		<body style="background-color:rgb(130, 200, 226); font-family: 'Open Sans', sans-serif;">
+			<div class="container mt-5">
+				<h1 class="h1"
+					style="border: 10px solid rgb(77, 120, 114); padding: 10px; text-align: center; font-size: 2cm; border-radius: 10px; background-color: rgb(248, 217, 116);">
+					Medical Intake Form</h1>
+				<div class="form-row align-items-center"
+					style="border: 10px solid rgb(65, 90, 106);border-radius: 10px; padding: 50px;">
+					<form action="/consultpatientform" method="post" style="align-items: center;">
+						<h2 class="h2" style="text-align: center;">Administrative and Demographic Information</h2>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="fullName">Full Name:</label>
+								<input type="text" class="form-control mb-2" id="fullName" name="fullName"
+									placeholder="Full Name" required>
+							</div>
+							<div class="form-group col">
+								<label for="dateOfBirth">Date of Birth:</label>
+								<input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="gender">Gender:</label>
+								<select id="gender" name="gender" class="form-control" required>
+									<option value="">--Select--</option>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
+							</div>
+							<div class="form-group col">
+								<label for="address">Address:</label>
+								<textarea id="address" name="address" class="form-control" required></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="phone">Phone Number:</label>
+								<input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone Number"
+									required>
+							</div>
+							<div class="form-group col">
+								<label for="email">Email:</label>
+								<input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="emergName">Emergency Contact Name:</label>
+								<input type="text" id="emergName" name="emergName" class="form-control" required>
+							</div>
+							<div class="form-group col">
+								<label for="emergRelation">Relationship:</label>
+								<input type="text" id="emergRelation" name="emergRelation" class="form-control" required>
+							</div>
+							<div class="form-group col">
+								<label for="emergContact">Emergency Contact Phone:</label>
+								<input type="tel" id="emergContact" name="emergContact" class="form-control" required>
+							</div>
+						</div>
+		
+						<h2 class="h2" style="text-align: center">Medical History</h2>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="meds">Current Medications:</label>
+								<textarea id="meds" name="meds" class="form-control"></textarea>
+							</div>
+							<div class="form-group col">
+								<label for="allergies">Allergies:</label>
+								<textarea id="allergies" name="allergies" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col mx-3">
+								<label for="pastMedHistory">Past Medical History:</label>
+								<textarea id="pastMedHistory" name="pastMedHistory" class="form-control"></textarea>
+							</div>
+							<div class="form-group col">
+								<label for="famMedHistory">Family Medical History:</label>
+								<textarea id="famMedHistory" name="famMedHistory" class="form-control"></textarea>
+							</div>
+							<div class="form-group col">
+								<label for="socialHistory">Social History:</label>
+								<textarea id="socialHistory" name="socialHistory" class="form-control"></textarea>
+							</div>
+						</div>
+						<h2 class="h2" style="text-align: center">Clinical Data</h2>
+						<div class="form-group">
+							<h3 class="h3">Vital Signs:</h3>
+							<div class="row">
+								<div class="form-group col mx-3">
+									<label for="bp">Blood Pressure:</label>
+									<input type="number" id="bp" name="bp" class="form-control"></input>
+								</div>
+								<div class="form-group col">
+									<label for="pulse">Pulse Rate:</label>
+									<input type="number" id="pulse" name="pulse" class="form-control"></input>
+								</div>
+								<div class="form-group col">
+									<label for="temp">Temperature:</label>
+									<input type="number" id="temp" name="temp" class="form-control"></input>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col mx-3">
+									<label for="respiratoryRate">Respiratory Rate:</label>
+									<input type="number" id="respiratoryRate" name="respiratoryRate"
+										class="form-control"></input>
+								</div>
+								<div class="form-group col">
+									<label for="weight">Weight:</label>
+									<input type="number" id="weight" name="weight" class="form-control"></input>
+								</div>
+								<div class="form-group col">
+									<label for="height">Height:</label>
+									<input type="number" id="height" name="height" class="form-control"></input>
+								</div>
+								<div class="form-group col">
+									<label for="bmi">BMI:</label>
+									<input type="number" id="bmi" name="bmi" class="form-control"></input>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col mx-3">
+									<label for="reasonforvisit">Reason for Visit:</label>
+									<textarea id="reasonforvisit" name="reasonforvisit" class="form-control"></textarea>
+								</div>
+								<div class="form-group col">
+									<label for="physicalexamination">Physical Examination:</label>
+									<textarea id="physicalexamination" name="physicalexamination"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group col">
+									<label for="diagnosis">Diagnosis:</label>
+									<textarea id="diagnosis" name="diagnosis" class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-success"
+							style="display: block; margin: 0 auto; hover{background-color: darkmagenta;}">Submit</button>
+					</form>
+				</div>
+			</div>
+	</section>
+
+	<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/popper.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+  	<script src="{{url_for('static',filename='js/main.js')}}"></script>
+
+	</body>
+</html>
+

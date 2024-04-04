@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="B. Ranadeer" />
+    <link rel="icon" href="icon.png" sizes="16×16" type="image/png" />
+    <title>Health Data Display</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body style="background-color:rgb(124, 194, 222)">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Patient Information</h1>
+        <div class="card shadow mb-4" style="background-color: rgba(14, 63, 100, 0.318);">
+            <div class="card-header">Administrative and Demographic Information</div>
+            <div class="card-body">
+                <p><strong>Full Name:</strong> <span id="disp-fullName"></span></p>
+                <p><strong>Date of Birth:</strong> <span id="disp-dateOfBirth"></span></p>
+                <p><strong>Gender:</strong> <span id="disp-gender"></span></p>
+                <p><strong>Address:</strong> <span id="disp-address"></span></p>
+                <p><strong>Phone Number:</strong> <span id="disp-phone"></span></p>
+                <p><strong>Email:</strong> <span id="disp-email"></span></p>
+                <p><strong>Emergency Contact Name:</strong> <span id="disp-emergName"></span></p>
+                <p><strong>Relationship:</strong> <span id="disp-emergRelation"></span></p>
+                <p><strong>Emergency Contact Phone:</strong> <span id="disp-emergContact"></span></p>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4" style="background-color: rgba(12, 44, 103, 0.475);">
+            <div class="card-header">Medical History</div>
+            <div class="card-body">
+                <p><strong>Current Medications:</strong> <span id="disp-meds"></span></p>
+                <p><strong>Allergies:</strong> <span id="disp-allergies"></span></p>
+                <p><strong>Past Medical History:</strong> <span id="disp-pastMedHistory"></span></p>
+                <p><strong>Family Medical History:</strong> <span id="disp-famMedHistory"></span></p>
+                <p><strong>Social History:</strong> <span id="disp-socialHistory"></span></p>
+
+            </div>
+        </div>
+
+        <div class="card shadow mb-4" style="background-color: rgba(27, 56, 110, 0.475);">
+            <div class="card-header">Clinical Data</div>
+            <div class="card-body">
+                <p><strong>Blood Pressure:</strong> <span id="disp-bp"></span></p>
+                <p><strong>Pulse Rate:</strong> <span id="disp-pulse"></span></p>
+                <p><strong>Temperature:</strong> <span id="disp-temp"></span></p>
+                <p><strong>Respiratory Rate:</strong> <span id="disp-respiratoryRate"></span></p>
+                <p><strong>Weight:</strong> <span id="disp-weight"></span></p>
+                <p><strong>Height:</strong> <span id="disp-height"></span></p>
+                <p><strong>BMI:</strong> <span id="disp-bmi"></span></p>
+                <p><strong>Reason for Visit:</strong> <span id="disp-reasonforvisit"></span></p>
+                <p><strong>Physical Examination:</strong> <span id="disp-physicalexamination"></span></p>
+                <p><strong>Diagnosis:</strong> <span id="disp-diagnosis"></span></p>
+
+            </div>
+        </div>
+        <button type="button" onclick="history.back()" class="btn btn-secondary"
+            style="display: block; margin: 0 auto; hover{background-color: darkmagenta;}">Go
+            Back</button>
+
+        <script>
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Populateulate Administrative and Demographic fields:
+            document.getElementById("disp-fullName").textContent = urlParams.get('fullName');
+            document.getElementById("disp-dateOfBirth").textContent = urlParams.get('dateOfBirth');
+            document.getElementById("disp-gender").textContent = urlParams.get('gender');
+            document.getElementById("disp-address").textContent = urlParams.get('address');
+            document.getElementById("disp-phone").textContent = urlParams.get('phone');
+            document.getElementById("disp-email").textContent = urlParams.get('email');
+            document.getElementById("disp-emergName").textContent = urlParams.get('emergName');
+            document.getElementById("disp-emergRelation").textContent = urlParams.get('emergRelation');
+            document.getElementById("disp-emergContact").textContent = urlParams.get('emergContact');
+
+            // Populate Medical History fields
+            document.getElementById("disp-meds").textContent = urlParams.get('meds');
+            document.getElementById("disp-allergies").textContent = urlParams.get('allergies');
+            document.getElementById("disp-pastMedHistory").textContent = urlParams.get('pastMedHistory');
+            document.getElementById("disp-famMedHistory").textContent = urlParams.get('famMedHistory');
+            document.getElementById("disp-socialHistory").textContent = urlParams.get('socialHistory');
+
+            // Populate Cinical Data fields
+            document.getElementById("disp-bp").textContent = urlParams.get('bp');
+            document.getElementById("disp-pulse").textContent = urlParams.get('pulse');
+            document.getElementById("disp-temp").textContent = urlParams.get('temp');
+            document.getElementById("disp-respiratoryRate").textContent = urlParams.get('respiratoryRate');
+            document.getElementById("disp-weight").textContent = urlParams.get('weight');
+            document.getElementById("disp-height").textContent = urlParams.get('height');
+            document.getElementById("disp-bmi").textContent = urlParams.get('bmi');
+            document.getElementById("disp-reasonforvisit").textContent = urlParams.get('reasonforvisit');
+            document.getElementById("disp-physicalexamination").textContent = urlParams.get('physicalexamination');
+            document.getElementById("disp-diagnosis").textContent = urlParams.get('diagnosis');
+
+        </script>
+    </div>
+</body>
+
+</html>
